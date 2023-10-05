@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
+    <audio id="clickSound" src="click.mp3"></audio>
+    <audio id="winSound" src="win.mp3"></audio>
 </head>
 <style>
     body {
@@ -86,6 +88,8 @@
         const cells = document.querySelectorAll('.cell');
         const message = document.getElementById('message');
         const restartButton = document.getElementById('restartButton');
+        const clickSound = document.getElementById('clickSound');
+        const winSound = document.getElementById('winSound');
         let currentPlayer = 'X';
     
         function checkWinner() {
@@ -105,6 +109,7 @@
                 if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
                     cells[a].style.backgroundColor = cells[b].style.backgroundColor = cells[c].style.backgroundColor = '#4caf50';
                     message.textContent = `${currentPlayer} wins!`;
+                    winSound.play();
                     return true;
                 }
             }
@@ -120,6 +125,7 @@
         function handleClick() {
             if (this.textContent || checkWinner()) return;
             this.textContent = currentPlayer;
+            clickSound.play();
             if (checkWinner()) return;
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             message.textContent = `${currentPlayer}'s turn`;
